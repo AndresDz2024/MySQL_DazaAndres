@@ -837,3 +837,69 @@ where pais = 'España';
 select nombre, apellido1, email
 from empleado
 where codigo_jefe = 7;
+
+## puesto - nombre - apellidos - email - jefe de la empresa
+select puesto, nombre, apellido1, apellido2, email
+from empleado
+where puesto = 'Director General';
+
+## nombre - apellidos - puesto - empleados que no sean representantes de ventas
+select nombre, apellido1, apellido2, puesto
+from empleado
+where puesto != 'Representante Ventas';
+
+## nombre - clientes españoles
+select nombre_cliente
+from cliente
+where pais = 'Spain';
+
+## estados en los que puede estar un pedido
+select distinct estado
+from pedido;
+
+## codigo del cliente - clientes pago 2008
+select distinct codigo_cliente
+from pago
+where year(fecha_pago) = 2008;
+
+## Codigo de pedido - codigo del cliente - fecha esperada - fecha entrega - pedidos que no se entregaron a tiempo
+select codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
+from pedido
+where date(fecha_esperada)<date(fecha_entrega);
+
+## codigo de pedido - codigo del cliente - pedidos que han sido entregados dos dias antes
+select codigo_pedido, codigo_cliente
+from pedido
+where datediff(fecha_esperada, fecha_entrega) = 2; 
+
+## pedidos del 2009
+select codigo_pedido, estado, fecha_pedido, comentarios, codigo_cliente
+from pedido
+where year(fecha_pedido) = 2009;
+
+## pedidos mes de enero
+select codigo_pedido, estado, fecha_pedido, comentarios, codigo_cliente
+from pedido
+where date_format(fecha_pedido, "%m") = 01;
+
+## pagos 2008 mediante paypal 
+select codigo_cliente, id_transaccion, fecha_pago, forma_pago, total
+from pago
+where year(fecha_pago) = 2008 and forma_pago = 'PayPal'
+order by id_transaccion DESC;
+
+## formas de pago - no repetidas
+select distinct forma_pago
+from pago;
+
+## productos - pertenecen a la gama ornamentales - mas de 100 unidades en stock - ordenados por precio de venta de mayor a menor
+select codigo_producto, nombre, gama, cantidad_en_stock, precio_venta
+from producto
+where gama = 'Ornamentales' and cantidad_en_stock > 100
+order by precio_venta Desc;
+
+## clientes - ciudad de madrid - representante de ventas tenga el codigo de empleado 11 o 30
+select codigo_cliente, nombre_cliente, nombre_contacto, ciudad, codigo_empleado_rep_ventas
+from cliente
+where ciudad = 'Madrid' and (codigo_empleado_rep_ventas = 11 or codigo_empleado_rep_ventas = 30);
+
