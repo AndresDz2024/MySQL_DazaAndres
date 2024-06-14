@@ -55,7 +55,6 @@ create table empleado(
     foreign key (codigo_jefe) references empleado(codigo_empleado)
 );
 
-drop table empleado;
 
 create table cliente(
 	codigo_cliente int(11) primary key,
