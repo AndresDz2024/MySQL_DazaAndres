@@ -27,8 +27,11 @@ create table producto(
     descripcion text,
     cantidad_en_stock smallint(6) not null,
     precio_venta decimal(15,2),
-    precio_proveedor decimal(15,2)
+    precio_proveedor decimal(15,2),
+    foreign key (gama) references gama_producto(gama)
 );
+
+drop table producto;
 
 create table oficina(
 	codigo_oficina varchar(10) primary key,
